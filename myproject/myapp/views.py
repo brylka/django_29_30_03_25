@@ -1,6 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
+from .models import Post
+
+
 def hello_world(request):
     print("Moje komentarze")
     return render(request, 'myapp/hello_world.html')
@@ -37,5 +40,6 @@ def table(request):
     #return HttpResponse(text)
 
 
-if __name__ == '__main__':
-    table()
+def post_list(request):
+    posts = Post.objects.all()
+    return render(request, 'myapp/tables.html', {'posts': posts})
