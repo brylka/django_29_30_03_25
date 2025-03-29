@@ -7,4 +7,11 @@ def hello_world(request):
     #return HttpResponse("<style> body {background-color: red; color: white;}</style><h1>Hello World!</h1><hr><p>Moja aplikacja</p>")
 
 def hello_name(request, name):
-    return HttpResponse(f"Witaj {name}!")
+    return render(request, 'myapp/hello_name.html', {'name': name})
+    #return HttpResponse(f"Witaj {name}!")
+
+def add(request, a, b):
+    print(a+b)
+    c = a + b
+    return render(request, 'myapp/add.html', {'a': a, 'b': b, 'c': c})
+    #return HttpResponse(f"{a} + {b} = {c}")
