@@ -1,6 +1,7 @@
 {% extends "myapp/base.html" %}
 {% block title %}Tabelka z danymi{% endblock %}
 {% block content %}
+{% if posts %}
     <table border="1">
         <tr>
             <th>Nazwa
@@ -13,4 +14,7 @@
             <td>{{ post.created_at }}
         {% endfor %}
     </table>
+{% else %}
+    <p>Brak danych do wyświetlenia!</p>
+{% endif %}
 {% endblock %}
