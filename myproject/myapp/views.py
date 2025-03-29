@@ -11,7 +11,13 @@ def hello_name(request, name):
     #return HttpResponse(f"Witaj {name}!")
 
 def add(request, a, b):
-    print(a+b)
     c = a + b
     return render(request, 'myapp/add.html', {'a': a, 'b': b, 'c': c})
     #return HttpResponse(f"{a} + {b} = {c}")
+
+def div(request, a, b):
+    if b != 0:
+        c = a / b
+    else:
+        c = ''
+    return render(request, 'myapp/div.html', {'a': a, 'b': b, 'c': c})
