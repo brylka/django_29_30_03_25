@@ -16,8 +16,7 @@ def add(request, a, b):
     #return HttpResponse(f"{a} + {b} = {c}")
 
 def div(request, a, b):
+    context = {'a': a, 'b': b}
     if b != 0:
-        c = a / b
-    else:
-        c = ''
-    return render(request, 'myapp/div.html', {'a': a, 'b': b, 'c': c})
+        context['c'] = a / b
+    return render(request, 'myapp/div.html', context)
