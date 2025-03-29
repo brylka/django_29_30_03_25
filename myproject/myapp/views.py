@@ -22,7 +22,13 @@ def div(request, a, b):
     return render(request, 'myapp/div.html', context)
 
 def table(request):
-    posts = []
+    posts = [
+        {'title': 'Post pierwszy', 'content': 'Terść pierwszego posta', 'created_at': '2025-03-10'},
+        {'title': 'Post drugi  ', 'content': 'Terść drugiego posta', 'created_at': '2025-03-13'},
+        {'title': 'Post trzeci  ', 'content': 'Terść trzeciego posta', 'created_at': '2025-03-16'},
+        {'title': 'Post czwarty', 'content': 'Terść czwartego posta', 'created_at': '2025-03-20'},
+        {'title': 'Post piąty', 'content': 'Terść piątego posta', 'created_at': '2025-03-24'},
+    ]
 
     # text = ''
     # for post in posts:
