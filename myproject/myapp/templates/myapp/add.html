@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <title>Dodawanie</title>
+{% extends "myapp/base.html" %}
+
+{% block title %}Dodawanie{% endblock %}
+{% block styles %}
     <style>
         body {
             background-color: burlywood;
@@ -10,9 +9,8 @@
             font-family: Verdana;
         }
     </style>
-</head>
-<body>
+{% endblock %}
+{% block content %}
     <h1>Sumowanie</h1>
     <p>{{ a }} + {{ b }} = {{ c }}</p>
-</body>
-</html>
+{% endblock %}

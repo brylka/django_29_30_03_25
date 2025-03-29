@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <title>Witaj świecie!</title>
-</head>
-<body>
-    <h1>Witaj w moim świecie!</h1>
-    <hr>
-    <p>Opracował: <br><br><br>Bartosz Bryniarski</p>
-</body>
-</html>
+{% extends "myapp/base.html" %}
+{% block title %}Witaj świecie!{% endblock %}
+{% block content %}
+    <p>Ścieżka home mojej apki</p>
+{% endblock %}

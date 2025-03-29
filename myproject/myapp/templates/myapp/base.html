@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Moja strona{% endblock %}</title>
+    {% block styles %}{% endblock %}
+</head>
+<body>
+    <header>
+        <h1>Witaj w mojej apce!!!!!!</h1>
+        <hr>
+    </header>
+
+    <main>
+        {% block content %} Tu będzie treść każdej ścieżki! {% endblock %}
+    </main>
+
+    <footer>
+        <hr>
+        <p>Opracował: Bartosz Bryniarski</p>
+    </footer>
+</body>
+</html>

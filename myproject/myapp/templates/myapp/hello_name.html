@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <title>Witaj!</title>
-</head>
-<body>
+{% extends "myapp/base.html" %}
+{% block title %}Witaj {{ name }}!{% endblock %}
+{% block content %}
     <h1>Witaj {{ name }}!</h1>
-</body>
-</html>
+{% endblock %}
