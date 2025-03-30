@@ -1,0 +1,12 @@
+{% extends "myapp/base.html" %}
+{% block title %}Edytuj post{% endblock %}
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    Tytuł posta: <br>
+    <input type="text" name="title" value="{{ post.title }}" required><br>
+    Treść posta: <br>
+    <textarea name="content" rows="10" cols="50" required>{{ post.content }}</textarea><br>
+    <button type="submit">Edytuj post</button>
+</form>
+{% endblock %}

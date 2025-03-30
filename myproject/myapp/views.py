@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import Post
 
@@ -55,3 +55,7 @@ def create_post(request):
             return HttpResponse("Nie wszystkie dane są podane!")
 
     return render(request, 'myapp/create_post.html')
+
+def update_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    return render(request, 'myapp/update_post.html', {'post': post})
