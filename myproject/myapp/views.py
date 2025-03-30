@@ -116,7 +116,17 @@ def create_image(request):
     if request.method == "POST":
         form = ImageForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            image_file = form.cleaned_data['image']
+            title = form.cleaned_data['title']
+            image_data = image_file.read()
+
+            image = Image(
+                title=title,
+                image_data=image_data,
+            )
+            image.save()
+
+            #form.save()
             return redirect("image_list")
 
     form = ImageForm()
@@ -124,5 +134,6 @@ def create_image(request):
 
 def serve_image(request, image_id):
     image = get_object_or_404(Image, id=image_id)
-    with open(image.image.path, 'rb') as img_file:
-        return HttpResponse(img_file.read(), content_type='image/jpeg')
+    return HttpResponse(image.image_data, content_type='image/jpeg')
+    #with open(image.image.path, 'rb') as img_file:
+    #    return HttpResponse(img_file.read(), content_type='image/jpeg')

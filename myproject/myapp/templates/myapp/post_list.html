@@ -14,7 +14,7 @@
             <td>{{ forloop.counter }}
             <!--<td>{{ post.id }}-->
             <td>{{ post.title }}
-            <td>{{ post.content }}
+            <td>{{ post.content }} <br><img src="{% url 'serve_image' post.id %}" alt="{{ image.title }}" style="max-width: 100px;">
             <td>{{ post.created_at }}
             <td><a href="{% url 'update_post' post.id %}">Edytuj</a>
                 <!--<a href="{% url 'delete_post' post.id %}">Usuń</a>-->
