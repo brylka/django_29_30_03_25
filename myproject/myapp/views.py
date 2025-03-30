@@ -1,7 +1,7 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .forms import LinearEquationForm, PostForm
+from .forms import LinearEquationForm, PostForm, ImageForm
 from .models import Post, Image
 
 
@@ -113,7 +113,14 @@ def image_list(request):
     return render(request, 'myapp/image_list.html', {'images': images})
 
 def create_image(request):
-    pass
+    if request.method == "POST":
+        form = ImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect("image_list")
+
+    form = ImageForm()
+    return render(request, 'myapp/image_form.html', {'form': form})
 
 def serve_image(request, image_id):
     pass
