@@ -3,14 +3,16 @@
 {% block content %}
     <table border="1">
         <tr>
-            <th>id
-            <th>Nazwa
-            <th>Treść
-            <th>Data
+            <th>Lp.
+            <!--<th>id-->
+            <th><a href="?sort=title">Nazwa</a>
+            <th><a href="?sort=content">Treść</a>
+            <th><a href="?sort=created_at">Data</a>
             <th>Akcja
         {% for post in posts %}
         <tr>
-            <td>{{ post.id }}
+            <td>{{ forloop.counter }}
+            <!--<td>{{ post.id }}-->
             <td>{{ post.title }}
             <td>{{ post.content }}
             <td>{{ post.created_at }}

@@ -41,7 +41,8 @@ def table(request):
 
 
 def post_list(request):
-    posts = Post.objects.all()
+    sort = request.GET.get('sort', 'id')
+    posts = Post.objects.all().order_by(sort)
     return render(request, 'myapp/post_list.html', {'posts': posts})
 
 def create_post(request):
