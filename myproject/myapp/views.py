@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
+from .forms import LinearEquationForm
 from .models import Post
 
 
@@ -76,3 +77,20 @@ def delete_post(request, post_id):
         return redirect("post_list")
 
     return render(request, 'myapp/delete_post.html', {'post': post})
+
+def zero_point(request):
+    if request.method == 'POST':
+        form = LinearEquationForm(request.POST)
+        if form.is_valid():
+            a = form.cleaned_data['a']
+            b = form.cleaned_data['b']
+
+            if a != 0:
+                x0 = -b / a
+            else:
+                x0 = 'Brak miejsca zerowyego!'
+    else:
+        x0 = None
+        form = LinearEquationForm()
+
+    return render(request, 'myapp/zero_point.html', {'form': form, 'x0': x0})

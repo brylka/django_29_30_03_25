@@ -1,0 +1,13 @@
+{% extends "myapp/base.html" %}
+{% block title %}Obliczanie miejsca zerowego funkcji liniowej{% endblock %}
+{% block content %}
+<h3>Oblicz miejsce zerowe funkcji f(x) = ax + b</h3>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Oblicz</button>
+    </form>
+{% if x0 != None %}
+    Miejsce zerowe wynosi {{ x0 }}
+{% endif %}
+{% endblock %}
