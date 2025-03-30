@@ -1,0 +1,17 @@
+{% extends "myapp/base.html" %}
+{% block title %}Lista obrazków{% endblock %}
+{% block content %}
+    <table class="table">
+    <tr>
+        <th>tytuł
+        <th>img
+        {% for image in images %}
+            <tr>
+                <td>{{ image.title }}
+                <td> {{ image.id }}
+    {% empty %}
+            <tr>
+                <td colspan="2">Nie ma obrazków
+    {% endfor %}
+    </table>
+{% endblock %}

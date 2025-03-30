@@ -2,7 +2,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import LinearEquationForm, PostForm
-from .models import Post
+from .models import Post, Image
 
 
 def hello_world(request):
@@ -107,3 +107,13 @@ def zero_point(request):
         form = LinearEquationForm()
 
     return render(request, 'myapp/zero_point.html', {'form': form, 'x0': x0})
+
+def image_list(request):
+    images = Image.objects.all()
+    return render(request, 'myapp/image_list.html', {'images': images})
+
+def create_image(request):
+    pass
+
+def serve_image(request, image_id):
+    pass
