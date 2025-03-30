@@ -123,4 +123,6 @@ def create_image(request):
     return render(request, 'myapp/image_form.html', {'form': form})
 
 def serve_image(request, image_id):
-    pass
+    image = get_object_or_404(Image, id=image_id)
+    with open(image.image.path, 'rb') as img_file:
+        return HttpResponse(img_file.read(), content_type='image/jpeg')

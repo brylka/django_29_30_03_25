@@ -8,7 +8,7 @@
         {% for image in images %}
             <tr>
                 <td>{{ image.title }}
-                <td> {{ image.id }}
+                <td><img src="{% url 'serve_image' image.id %}" alt="{{ image.title }}" style="max-width: 500px;">
     {% empty %}
             <tr>
                 <td colspan="2">Nie ma obrazków
