@@ -1,0 +1,10 @@
+{% extends "myapp/base.html" %}
+{% block title %}Usuń post{% endblock %}
+{% block content %}
+    <p>Czy na pewno chcesz usunąc post o temacie: "{{ post.title }}" ?</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Tak, usuń!</button><br>
+        <a href="{% url 'post_list' %}">Nie, wróć na listę postów!</a>
+    </form>
+{% endblock %}

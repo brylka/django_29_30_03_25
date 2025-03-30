@@ -15,6 +15,7 @@
             <td>{{ post.content }}
             <td>{{ post.created_at }}
             <td><a href="{% url 'update_post' post.id %}">Edytuj</a>
+                <a href="{% url 'delete_post' post.id %}">Usuń</a>
         {% empty %}
         <tr>
             <td colspan="3">Brak danych do wyświetlenia!

@@ -66,3 +66,12 @@ def update_post(request, post_id):
         return redirect("post_list")
 
     return render(request, 'myapp/update_post.html', {'post': post})
+
+def delete_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+
+    if request.method == "POST":
+        post.delete()
+        return redirect("post_list")
+
+    return render(request, 'myapp/delete_post.html', {'post': post})
