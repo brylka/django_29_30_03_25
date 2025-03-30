@@ -1,7 +1,7 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .forms import LinearEquationForm
+from .forms import LinearEquationForm, PostForm
 from .models import Post
 
 
@@ -47,36 +47,49 @@ def post_list(request):
     return render(request, 'myapp/post_list.html', {'posts': posts})
 
 def create_post(request):
-    if request.method == "POST":
-        title = request.POST.get("title")
-        content = request.POST.get("content")
-        if title and content:
-            Post.objects.create(title=title, content=content)
-            return redirect("post_list")
-        else:
-            return HttpResponse("Nie wszystkie dane są podane!")
-
-    return render(request, 'myapp/create_post.html')
+    #if request.method == "POST":
+        #title = request.POST.get("title")
+        #content = request.POST.get("content")
+        #if title and content:
+        #    Post.objects.create(title=title, content=content)
+        #else:
+        #    return HttpResponse("Nie wszystkie dane są podane!")
+    #form = PostForm()
+    form = PostForm(request.POST or None)
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        return redirect("post_list")
+    return render(request, 'myapp/post_form.html', {'form': form, 'title': 'Stwórz post'})
 
 def update_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
+    form = PostForm(request.POST or None, instance=post)
 
-    if request.method == "POST":
-        post.title = request.POST.get("title")
-        post.content = request.POST.get("content")
-        post.save()
+    if request.method == "POST" and form.is_valid():
+        #post.title = request.POST.get("title")
+        #post.content = request.POST.get("content")
+        #post.save()
+        form.save()
         return redirect("post_list")
 
-    return render(request, 'myapp/update_post.html', {'post': post})
+    return render(request, 'myapp/post_form.html', {'form': form, 'title': 'Edytuj post'})
+
+# def delete_post(request, post_id):
+#     post = get_object_or_404(Post, id=post_id)
+#
+#     if request.method == "POST":
+#         post.delete()
+#         return redirect("post_list")
+#
+#     return render(request, 'myapp/delete_post.html', {'post': post})
 
 def delete_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
-
-    if request.method == "POST":
+    if request.method == "DELETE":
         post.delete()
-        return redirect("post_list")
+        return JsonResponse({"message": "Post usunięty!"}, status=200)
+    return JsonResponse({"error": "Metoda nieznana!"}, status=405)
 
-    return render(request, 'myapp/delete_post.html', {'post': post})
 
 def zero_point(request):
     if request.method == 'POST':

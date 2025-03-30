@@ -10,14 +10,17 @@
             <th><a href="?sort=created_at">Data</a>
             <th>Akcja
         {% for post in posts %}
-        <tr>
+        <tr id="post-{{ post.id }}">
             <td>{{ forloop.counter }}
             <!--<td>{{ post.id }}-->
             <td>{{ post.title }}
             <td>{{ post.content }}
             <td>{{ post.created_at }}
             <td><a href="{% url 'update_post' post.id %}">Edytuj</a>
-                <a href="{% url 'delete_post' post.id %}">Usuń</a>
+                <!--<a href="{% url 'delete_post' post.id %}">Usuń</a>-->
+                <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                        data-id="{{ post.id }}" data-title="{{ post.title }}">Usuń
+                </button>
         {% empty %}
         <tr>
             <td colspan="3">Brak danych do wyświetlenia!
@@ -25,4 +28,57 @@
     </table>
 <hr>
 <a class="btn btn-outline-primary" href="{% url 'create_post' %}">Dodaj post</a>
+
+
+    <!-- Modal Bootstrap -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Potwierdzenie usunięcia</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Czy na pewno chcesz usunąć post <strong id="postTitle"></strong>?</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="confirmDelete" class="btn btn-danger">Tak, usuń</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        var deleteModal = document.getElementById('deleteModal');
+        var deleteButton = document.getElementById('confirmDelete');
+        var postIdToDelete = null;
+
+        deleteModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;  // Przycisk, który otworzył modal
+            postIdToDelete = button.getAttribute('data-id');
+            var postTitle = button.getAttribute('data-title');
+
+            var modalTitle = deleteModal.querySelector('#postTitle');
+            modalTitle.textContent = postTitle;
+        });
+
+        deleteButton.addEventListener('click', function () {
+            fetch(`/posts/delete/${postIdToDelete}/`, {
+                method: "DELETE",
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}",
+                },
+            }).then(response => {
+                if (response.ok) {
+                    document.getElementById(`post-${postIdToDelete}`).remove();
+                    var modal = bootstrap.Modal.getInstance(deleteModal);
+                    modal.hide();
+                }
+            });
+        });
+    </script>
+
+
 {% endblock %}
